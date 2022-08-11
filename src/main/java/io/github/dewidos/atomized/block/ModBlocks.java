@@ -2,6 +2,8 @@ package io.github.dewidos.atomized.block;
 
 import io.github.dewidos.atomized.Atomized;
 import io.github.dewidos.atomized.block.custom.UraniumBlock;
+import io.github.dewidos.atomized.block.custom.energy.FurnaceGeneratorBlock;
+import io.github.dewidos.atomized.block.custom.energy.NuclearFluxCapacitorBlock;
 import io.github.dewidos.atomized.item.ModCreativeTab;
 import io.github.dewidos.atomized.item.ModItems;
 import net.minecraft.world.item.BlockItem;
@@ -68,6 +70,10 @@ public class ModBlocks {
             () -> new UraniumBlock(BlockBehaviour.Properties.of(Material.STONE).strength(7f).requiresCorrectToolForDrops()),
             ModCreativeTab.ATOMIZED_TAB
     );
+
+    public static final RegistryObject<Block> furnace_generator = registerBlock("furnace_generator", () -> new FurnaceGeneratorBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.5F)), ModCreativeTab.ATOMIZED_TAB);
+
+    public static final RegistryObject<Block> nuclear_flux_capacitor = registerBlock("nuclear_flux_capacitor", () -> new NuclearFluxCapacitorBlock(BlockBehaviour.Properties.of(Material.STONE).strength(7f).requiresCorrectToolForDrops()), ModCreativeTab.ATOMIZED_TAB);
 
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
