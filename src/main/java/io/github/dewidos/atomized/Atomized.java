@@ -1,4 +1,4 @@
-package io.github.dewidos;
+package io.github.dewidos.atomized;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
