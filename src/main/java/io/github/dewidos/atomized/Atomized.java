@@ -1,7 +1,10 @@
 package io.github.dewidos.atomized;
 
 import io.github.dewidos.atomized.block.ModBlocks;
+import io.github.dewidos.atomized.effect.ModEffects;
 import io.github.dewidos.atomized.item.ModItems;
+import io.github.dewidos.atomized.item.custom.ModArmorMaterials;
+import io.github.dewidos.atomized.particle.ModParticles;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -22,6 +25,8 @@ public class Atomized {
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModParticles.register(modEventBus);
+        ModEffects.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
     }

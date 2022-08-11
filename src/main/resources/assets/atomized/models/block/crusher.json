@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "atomized:block/machine_casing",
+    "up": "atomized:block/machine_casing",
+    "north": "atomized:block/crusher",
+    "east": "atomized:block/machine_casing",
+    "south": "atomized:block/machine_casing",
+    "west": "atomized:block/machine_casing",
+    "particle": "atomized:block/crusher"
+  }
+}

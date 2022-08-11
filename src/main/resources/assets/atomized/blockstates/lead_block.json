@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "atomized:block/lead_block"}
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "item.atomized.steel_ingot": "Steel Ingot",
+  "item.atomized.uranium_ingot": "Uranium Ingot",
+  "item.atomized.lead_ingot": "Lead Ingot",
+  "item.atomized.sulfur": "Sulfur",
+  "item.atomized.sulfur_dust": "Sulfur Dust",
+  "item.atomized.rubber": "Rubber",
+  "item.atomized.raw_uranium": "Raw Uranium",
+  "item.atomized.hazmat_helmet": "Hazmat Mask",
+  "item.atomized.hazmat_chest": "Hazmat Chestplate",
+  "item.atomized.hazmat_leg": "Hazmat Leggings",
+  "item.atomized.hazmat_boots": "Hazmat Boots",
+
+  "block.atomized.lead_ore": "Lead Ore",
+  "block.atomized.deepslate_lead_ore": "Deepslate Lead Ore",
+  "block.atomized.lead_block": "Lead Block",
+  "block.atomized.crusher": "Crusher",
+  "block.atomized.machine_casing": "Machine Casing",
+  "block.atomized.sulfur_ore": "Sulfur Ore",
+  "block.atomized.uranium_ore": "Uranium Ore",
+  "block.atomized.uranium_block": "Uranium Block",
+  "block.atomized.steel_block": "Steel Block",
+  "block.atomized.lead_glass": "Hardened Lead Glass",
+
+  "itemGroup.Atomized": "Atomized",
+  "itemGroup.AtomizedEquipment": "Atomized Equipment",
+
+  "effect.atomized.radiation": "Radiation"
+}

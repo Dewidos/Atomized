@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "atomized:block/crusher" },
+    "facing=east": { "model": "atomized:block/crusher", "y": 90 },
+    "facing=south": { "model": "atomized:block/crusher", "y": 180 },
+    "facing=west": { "model": "atomized:block/crusher", "y": 270 }
+  }
+}
