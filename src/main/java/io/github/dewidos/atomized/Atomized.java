@@ -1,7 +1,9 @@
 package io.github.dewidos.atomized;
 
+import com.mojang.logging.LogUtils;
 import io.github.dewidos.atomized.block.ModBlocks;
 import io.github.dewidos.atomized.block.entity.ModBlockEntities;
+import io.github.dewidos.atomized.container.ModContainers;
 import io.github.dewidos.atomized.effect.ModEffects;
 import io.github.dewidos.atomized.item.ModItems;
 import io.github.dewidos.atomized.particle.ModParticles;
@@ -10,13 +12,14 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.slf4j.Logger;
 
 @Mod(Atomized.MOD_ID)
 public class Atomized {
 
     public static final String MOD_ID = "atomized";
 
-//    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public Atomized() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -28,6 +31,7 @@ public class Atomized {
         ModParticles.register(modEventBus);
         ModEffects.register(modEventBus);
         ModBlockEntities.register(modEventBus);
+        ModContainers.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
     }
