@@ -74,7 +74,7 @@ public class FurnaceGeneratorContainer extends AbstractContainerMenu {
     }
 
     public static MenuConstructor getServerContainer(FurnaceGeneratorBlockEntity be, BlockPos pos) {
-        return (id, playerInv, player) -> new FurnaceGeneratorContainer(id, playerInv, be.getInventory(), pos,
+        return (id, playerInv, player) -> new FurnaceGeneratorContainer(id, playerInv, be.itemHandler, pos,
                 new FurnaceGeneratorContainerData(be, 4));
     }
 }

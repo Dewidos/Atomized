@@ -7,9 +7,13 @@ import io.github.dewidos.atomized.container.ModContainers;
 import io.github.dewidos.atomized.effect.ModEffects;
 import io.github.dewidos.atomized.item.ModItems;
 import io.github.dewidos.atomized.particle.ModParticles;
+import io.github.dewidos.atomized.screen.FurnaceGeneratorBlockScreen;
+import io.github.dewidos.atomized.screen.ModMenuTypes;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
@@ -25,6 +29,7 @@ public class Atomized {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEventBus.addListener(this::setup);
+        modEventBus.addListener(this::clientSetup);
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
@@ -32,8 +37,13 @@ public class Atomized {
         ModEffects.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModContainers.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    private void clientSetup(final FMLClientSetupEvent event) {
+        MenuScreens.register(ModMenuTypes.FURNACE_GENERATOR_MENU.get(), FurnaceGeneratorBlockScreen::new);
     }
 
     private void setup(final FMLCommonSetupEvent event) {
