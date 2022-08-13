@@ -19,7 +19,7 @@ public class FurnaceGeneratorContainer extends AbstractContainerMenu {
 
     // Client Constructor
     public FurnaceGeneratorContainer(int id, Inventory playerInv) {
-        this(id, playerInv, new ItemStackHandler(1), BlockPos.ZERO, new SimpleContainerData(4));
+        this(id, playerInv, new ItemStackHandler(6), BlockPos.ZERO, new SimpleContainerData(4));
     }
 
     // Server constructor
@@ -30,7 +30,12 @@ public class FurnaceGeneratorContainer extends AbstractContainerMenu {
 
         final int slotSizePlus2 = 18, startX = 8, startY = 86, hotbarY = 144;
 
-        addSlot(new SlotItemHandler(slots, 0, 44, 36));
+        addSlot(new SlotItemHandler(slots, 0, 53, 36));
+        addSlot(new SlotItemHandler(slots, 1, 151, 6));
+        addSlot(new SlotItemHandler(slots, 2, 151, 24));
+        addSlot(new SlotItemHandler(slots, 3, 151, 42));
+        addSlot(new SlotItemHandler(slots, 4, 151, 60));
+        addSlot(new SlotItemHandler(slots, 5, 116, 60));
 
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 9; column++) {

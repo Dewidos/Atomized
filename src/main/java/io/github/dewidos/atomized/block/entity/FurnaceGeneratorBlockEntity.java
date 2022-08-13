@@ -3,6 +3,7 @@ package io.github.dewidos.atomized.block.entity;
 import io.github.dewidos.atomized.Atomized;
 import io.github.dewidos.atomized.block.entity.util.CustomEnergyStorage;
 import io.github.dewidos.atomized.block.entity.util.InventoryBlockEntity;
+import io.github.dewidos.atomized.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -26,12 +27,12 @@ public class FurnaceGeneratorBlockEntity extends InventoryBlockEntity implements
 
     public final CustomEnergyStorage energyStorage;
 
-    private int capacity = 2000, maxExtract = 100;
+    private int capacity = 20000, maxExtract = 150;
     private int progress, maxProgress = 0;
     private LazyOptional<CustomEnergyStorage> energy;
 
     public FurnaceGeneratorBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(ModBlockEntities.FURNACE_GENERATOR.get(), pPos, pBlockState, 1);
+        super(ModBlockEntities.FURNACE_GENERATOR.get(), pPos, pBlockState, 6);
         energyStorage = createEnergyStorage();
         energy = LazyOptional.of(() -> energyStorage);
     }
@@ -48,7 +49,7 @@ public class FurnaceGeneratorBlockEntity extends InventoryBlockEntity implements
     }
 
     public int getEnergyForStack(ItemStack stack) {
-        return ForgeHooks.getBurnTime(stack, RecipeType.SMELTING);
+        return ForgeHooks.getBurnTime(stack, RecipeType.SMELTING) + (1/4 * ForgeHooks.getBurnTime(stack, RecipeType.SMELTING));
     }
 
     public int getMaxProgress() {
@@ -103,21 +104,30 @@ public class FurnaceGeneratorBlockEntity extends InventoryBlockEntity implements
         }
     }
 
+    private int RFPerTick() {
+        int speed = 10;
+        if (getItemInSlot(1).is(ModItems.SPEED_UPGRADE.get())) {
+            speed += getItemInSlot(1).getCount() * 20;
+        }
+        return speed;
+    }
+
     private CustomEnergyStorage createEnergyStorage() {
         return new CustomEnergyStorage(capacity, 0, maxExtract, this);
     }
 
     public void tick() {
-        if (this.energyStorage.getEnergyStored() <= this.energyStorage.getMaxEnergyStored() - 100) {
+        if (this.energyStorage.getEnergyStored() <= this.energyStorage.getMaxEnergyStored() - RFPerTick()) {
             if (!getItemInSlot(0).isEmpty() && (this.progress <= 0 || this.progress > this.maxProgress)) {
                 this.maxProgress = getEnergyForStack(getItemInSlot(0));
                 this.inventory.extractItem(0, 1, false);
-                this.progress++;
+                this.energyStorage.setEnergy(this.energyStorage.getEnergyStored() + RFPerTick());
+                this.progress += RFPerTick();
             } else if (this.progress > 0) {
-                this.progress++;
+                this.progress += RFPerTick();
+                this.energyStorage.setEnergy(this.energyStorage.getEnergyStored() + RFPerTick());
                 if (this.progress >= this.maxProgress) {
                     this.progress = 0;
-                    this.energyStorage.setEnergy(this.energyStorage.getEnergyStored() + this.maxProgress);
                 }
             } else {
                 this.progress = 0;

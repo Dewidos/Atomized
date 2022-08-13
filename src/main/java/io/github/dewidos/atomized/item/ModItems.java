@@ -18,6 +18,7 @@ public class ModItems {
     public static final RegistryObject<Item> STEEL_INGOT = ITEMS.register("steel_ingot", () -> new Item(new Item.Properties().tab(ModCreativeTab.ATOMIZED_TAB)));
     public static final RegistryObject<Item> SULFUR = ITEMS.register("sulfur", () -> new Item(new Item.Properties().tab(ModCreativeTab.ATOMIZED_TAB)));
     public static final RegistryObject<Item> RUBBER = ITEMS.register("rubber", () -> new Item(new Item.Properties().tab(ModCreativeTab.ATOMIZED_TAB)));
+    public static final RegistryObject<Item> SPEED_UPGRADE = ITEMS.register("speed_upgrade", () -> new Item(new Item.Properties().tab(ModCreativeTab.ATOMIZED_TAB)));
     public static final RegistryObject<Item> IRON_ROD = ITEMS.register("iron_rod", () -> new Item(new Item.Properties().tab(ModCreativeTab.ATOMIZED_TAB)));
     public static final RegistryObject<Item> SULFUR_DUST = ITEMS.register("sulfur_dust", () -> new Item(new Item.Properties().tab(ModCreativeTab.ATOMIZED_TAB)));
     public static final RegistryObject<Item> RAW_URANIUM = ITEMS.register("raw_uranium", () -> new Item(new Item.Properties().tab(ModCreativeTab.ATOMIZED_TAB)));
