@@ -25,17 +25,17 @@ public class LeadChestContainer extends AbstractContainerMenu {
         super(ModContainers.LEAD_CHEST.get(), id);
         containerAccess = ContainerLevelAccess.create(playerInv.player.level, blockPos);
 
-        final int slotSizePlus2 = 18, startX = 8, startY = 87, hotbarY = 144, inventoryY = 17;
+        final int slotSizePlus2 = 18, startX = 8, startY = 18, hotbarY = 144, inventoryY = 86;
 
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 9; column++) {
-                addSlot(new SlotItemHandler(slots, row * 9 + column, startX + column * slotSizePlus2, inventoryY + row * slotSizePlus2));
+                addSlot(new SlotItemHandler(slots, row * 9 + column, startX + column * slotSizePlus2, startY + row * slotSizePlus2));
             }
         }
 
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 9; column++) {
-                addSlot(new Slot(playerInv, 9 + row * 9 + column, startX + column * slotSizePlus2, startY + row * slotSizePlus2));
+                addSlot(new Slot(playerInv, 9 + row * 9 + column, startX + column * slotSizePlus2, inventoryY + row * slotSizePlus2));
             }
         }
 
