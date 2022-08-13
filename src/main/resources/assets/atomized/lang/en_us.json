@@ -21,9 +21,12 @@
   "block.atomized.uranium_block": "Uranium Block",
   "block.atomized.steel_block": "Steel Block",
   "block.atomized.lead_glass": "Hardened Lead Glass",
+  "block.atomized_lead_chest": "Lead Chest",
 
   "itemGroup.Atomized": "Atomized",
   "itemGroup.AtomizedEquipment": "Atomized Equipment",
 
-  "effect.atomized.radiation": "Radiation"
+  "effect.atomized.radiation": "Radiation",
+
+  "container.atomized.lead_chest": "Lead Chest"
 }

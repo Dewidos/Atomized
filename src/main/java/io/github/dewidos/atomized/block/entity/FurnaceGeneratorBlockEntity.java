@@ -31,7 +31,7 @@ public class FurnaceGeneratorBlockEntity extends InventoryBlockEntity implements
     private LazyOptional<CustomEnergyStorage> energy;
 
     public FurnaceGeneratorBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(ModBlockEntities.furnace_generator_block_entity.get(), pPos, pBlockState, 1);
+        super(ModBlockEntities.FURNACE_GENERATOR.get(), pPos, pBlockState, 1);
         energyStorage = createEnergyStorage();
         energy = LazyOptional.of(() -> energyStorage);
     }
@@ -132,7 +132,7 @@ public class FurnaceGeneratorBlockEntity extends InventoryBlockEntity implements
 
 
     @Override
-    public void tick(Level pLevel, BlockPos pPos, BlockState pState, FurnaceGeneratorBlockEntity pBlockEntity) {
+    public void tick(@NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull BlockState pState, FurnaceGeneratorBlockEntity pBlockEntity) {
         pBlockEntity.tick();
     }
 }
