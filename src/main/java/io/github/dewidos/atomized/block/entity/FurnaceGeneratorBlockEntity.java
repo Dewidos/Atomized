@@ -2,84 +2,49 @@ package io.github.dewidos.atomized.block.entity;
 
 import io.github.dewidos.atomized.Atomized;
 import io.github.dewidos.atomized.block.entity.util.CustomEnergyStorage;
-import io.github.dewidos.atomized.screen.FurnaceGeneratorBlockMenu;
-import io.github.dewidos.atomized.util.AtomizedEnergyStorage;
+import io.github.dewidos.atomized.block.entity.util.InventoryBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class FurnaceGeneratorBlockEntity extends BlockEntity implements MenuProvider {
-
-    private final AtomizedEnergyStorage ENERGY_STORAGE = createEnergyStorage();
-
-    public final ItemStackHandler itemHandler = new ItemStackHandler(2) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-        }
-    };
-
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
-        return new FurnaceGeneratorBlockMenu(pContainerId, pInventory, this);
-    }
-
-    public static final Component TITLE = new TranslatableComponent("container." + Atomized.MOD_ID + ".energy_generator");
+public class FurnaceGeneratorBlockEntity extends InventoryBlockEntity implements BlockEntityTicker<FurnaceGeneratorBlockEntity> {
+    public static final Component TITLE = new TranslatableComponent("container." + Atomized.MOD_ID + ".furnace_generator");
 
     public final CustomEnergyStorage energyStorage;
+
     private int capacity = 2000, maxExtract = 100;
     private int progress, maxProgress = 0;
     private LazyOptional<CustomEnergyStorage> energy;
 
     public FurnaceGeneratorBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(ModBlockEntities.furnace_generator_block_entity.get(), pPos, pBlockState);
+        super(ModBlockEntities.FURNACE_GENERATOR.get(), pPos, pBlockState, 1);
         energyStorage = createEnergyStorage();
         energy = LazyOptional.of(() -> energyStorage);
     }
 
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
-
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return lazyItemHandler.cast();
-        }
-
-        return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-        super.onLoad();
+        return cap == CapabilityEnergy.ENERGY ? energy.cast() : super.getCapability(cap, side);
     }
 
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
         energy.invalidate();
-        lazyItemHandler.invalidate();
     }
 
     public int getEnergyForStack(ItemStack stack) {
@@ -144,9 +109,9 @@ public class FurnaceGeneratorBlockEntity extends BlockEntity implements MenuProv
 
     public void tick() {
         if (this.energyStorage.getEnergyStored() <= this.energyStorage.getMaxEnergyStored() - 100) {
-            if (!this.itemHandler.getStackInSlot(0).isEmpty() && (this.progress <= 0 || this.progress > this.maxProgress)) {
-                this.maxProgress = getEnergyForStack(this.itemHandler.getStackInSlot(0));
-                this.itemHandler.extractItem(0, 1, false);
+            if (!getItemInSlot(0).isEmpty() && (this.progress <= 0 || this.progress > this.maxProgress)) {
+                this.maxProgress = getEnergyForStack(getItemInSlot(0));
+                this.inventory.extractItem(0, 1, false);
                 this.progress++;
             } else if (this.progress > 0) {
                 this.progress++;
@@ -162,11 +127,12 @@ public class FurnaceGeneratorBlockEntity extends BlockEntity implements MenuProv
 
         outputEnergy();
 
+        super.tick();
     }
+
 
     @Override
-    public Component getDisplayName() {
-        return new TextComponent("Furnace Generator");
+    public void tick(@NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull BlockState pState, FurnaceGeneratorBlockEntity pBlockEntity) {
+        pBlockEntity.tick();
     }
-
 }

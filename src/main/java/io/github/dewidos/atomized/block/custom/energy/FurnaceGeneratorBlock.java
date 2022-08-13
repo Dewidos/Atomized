@@ -25,9 +25,11 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FurnaceGeneratorBlock extends Block implements EntityBlock {
+
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public FurnaceGeneratorBlock(Properties pProperties) {
         super(pProperties);
@@ -35,13 +37,13 @@ public class FurnaceGeneratorBlock extends Block implements EntityBlock {
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return ModBlockEntities.furnace_generator_block_entity.get().create(pPos, pState);
+    public BlockEntity newBlockEntity(@NotNull BlockPos pPos, @NotNull BlockState pState) {
+        return ModBlockEntities.FURNACE_GENERATOR.get().create(pPos, pState);
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
         return level.isClientSide ? null : (level0, pos, state0, blockEntity) -> ((FurnaceGeneratorBlockEntity) blockEntity).tick();
     }
 
@@ -59,34 +61,31 @@ public class FurnaceGeneratorBlock extends Block implements EntityBlock {
 
     @SuppressWarnings("deprecation")
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean moving) {
+    public void onRemove(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean moving) {
         final BlockEntity be = level.getBlockEntity(pos);
         //@formatter:off
         if (!((be instanceof final FurnaceGeneratorBlockEntity generator)))
             return;
         //@formatter:on
 
-        for (int slot = 0; slot < generator.itemHandler.getSlots(); slot++) {
-            if (generator.itemHandler.getStackInSlot(slot).isEmpty())
+        for (int slot = 0; slot < generator.inventory.getSlots(); slot++) {
+            if (generator.inventory.getStackInSlot(slot).isEmpty())
                 return;
 
             level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
-                    generator.itemHandler.getStackInSlot(slot)));
+                    generator.inventory.getStackInSlot(slot)));
         }
 
         super.onRemove(state, level, pos, newState, moving);
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
-                                 BlockHitResult result) {
-        if (!level.isClientSide()) {
-            BlockEntity entity = level.getBlockEntity(pos);
-            if(entity instanceof FurnaceGeneratorBlockEntity) {
-                NetworkHooks.openGui(((ServerPlayer)player), (FurnaceGeneratorBlockEntity)entity, pos);
-            } else {
-                throw new IllegalStateException("Our Container provider is missing!");
-            }
+    public @NotNull InteractionResult use(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand,
+                                          @NotNull BlockHitResult result) {
+        if (!level.isClientSide && level.getBlockEntity(pos) instanceof final FurnaceGeneratorBlockEntity generator) {
+            final MenuProvider container = new SimpleMenuProvider(
+                    FurnaceGeneratorContainer.getServerContainer(generator, pos), FurnaceGeneratorBlockEntity.TITLE);
+            NetworkHooks.openGui((ServerPlayer) player, container, pos);
         }
 
         return InteractionResult.SUCCESS;

@@ -23,7 +23,7 @@ public class InventoryBlockEntity extends BlockEntity {
     protected int timer;
     protected boolean requiresUpdate;
 
-    protected final ItemStackHandler inventory;
+    public final ItemStackHandler inventory;
     protected LazyOptional<ItemStackHandler> handler;
 
     public InventoryBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState, int size) {
@@ -80,10 +80,6 @@ public class InventoryBlockEntity extends BlockEntity {
 
     public LazyOptional<ItemStackHandler> getHandler() {
         return handler;
-    }
-
-    public ItemStackHandler getInventory() {
-        return inventory;
     }
 
     @Nullable

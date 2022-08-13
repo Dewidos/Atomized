@@ -19,7 +19,7 @@ public class UraniumBlock extends Block {
     @Override
     public void stepOn(@NotNull Level level, @NotNull BlockPos blockPos, @NotNull BlockState blockState, @NotNull Entity entity) {
         if (entity instanceof Player p) {
-            if (!((p.getInventory().getArmor(0).getItem().equals(ModItems.hazmat_boots.get())) && (p.getInventory().getArmor(1).getItem().equals(ModItems.hazmat_leg.get())) && (p.getInventory().getArmor(2).getItem().equals(ModItems.hazmat_chest.get())) && (p.getInventory().getArmor(3).getItem().equals(ModItems.hazmat_helmet.get())))) {
+            if (!((p.getInventory().getArmor(0).getItem().equals(ModItems.HAZMAT_BOOTS.get())) && (p.getInventory().getArmor(1).getItem().equals(ModItems.HAZMAT_LEG.get())) && (p.getInventory().getArmor(2).getItem().equals(ModItems.HAZMAT_CHEST.get())) && (p.getInventory().getArmor(3).getItem().equals(ModItems.HAZMAT_HELMET.get())))) {
                 p.addEffect(new MobEffectInstance(ModEffects.RADIATION.get(), 200, 1, false, false));
             }
             super.stepOn(level, blockPos, blockState, entity);

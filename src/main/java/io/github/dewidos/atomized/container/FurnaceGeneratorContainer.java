@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import org.jetbrains.annotations.NotNull;
 
 public class FurnaceGeneratorContainer extends AbstractContainerMenu {
     private final ContainerLevelAccess containerAccess;
@@ -23,7 +24,7 @@ public class FurnaceGeneratorContainer extends AbstractContainerMenu {
 
     // Server constructor
     public FurnaceGeneratorContainer(int id, Inventory playerInv, IItemHandler slots, BlockPos pos, ContainerData data) {
-        super(ModContainers.furnace_generator.get(), id);
+        super(ModContainers.FURNACE_GENERATOR.get(), id);
         this.containerAccess = ContainerLevelAccess.create(playerInv.player.level, pos);
         this.data = data;
 
@@ -46,7 +47,7 @@ public class FurnaceGeneratorContainer extends AbstractContainerMenu {
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int index) {
+    public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
         var retStack = ItemStack.EMPTY;
         final Slot slot = getSlot(index);
         if (slot.hasItem()) {
@@ -69,12 +70,12 @@ public class FurnaceGeneratorContainer extends AbstractContainerMenu {
     }
 
     @Override
-    public boolean stillValid(Player player) {
-        return stillValid(this.containerAccess, player, ModBlocks.furnace_generator.get());
+    public boolean stillValid(@NotNull Player player) {
+        return stillValid(this.containerAccess, player, ModBlocks.FURNACE_GENERATOR.get());
     }
 
     public static MenuConstructor getServerContainer(FurnaceGeneratorBlockEntity be, BlockPos pos) {
-        return (id, playerInv, player) -> new FurnaceGeneratorContainer(id, playerInv, be.itemHandler, pos,
+        return (id, playerInv, player) -> new FurnaceGeneratorContainer(id, playerInv, be.inventory, pos,
                 new FurnaceGeneratorContainerData(be, 4));
     }
 }

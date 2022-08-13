@@ -9,14 +9,14 @@ public class ModCreativeTab {
     public static final CreativeModeTab ATOMIZED_TAB = new CreativeModeTab("Atomized") {
         @Override
         public @NotNull ItemStack makeIcon() {
-            return new ItemStack(ModItems.steel_ingot.get());
+            return new ItemStack(ModItems.STEEL_INGOT.get());
         }
     };
 
     public static final CreativeModeTab ATOMIZED_EQUIPMENT_TAB = new CreativeModeTab("AtomizedEquipment") {
         @Override
         public @NotNull ItemStack makeIcon() {
-            return new ItemStack(ModItems.hazmat_helmet.get());
+            return new ItemStack(ModItems.HAZMAT_HELMET.get());
         }
     };
 
