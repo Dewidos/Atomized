@@ -3,7 +3,6 @@ package io.github.dewidos.atomized.block.entity;
 import io.github.dewidos.atomized.Atomized;
 import io.github.dewidos.atomized.block.entity.util.CustomEnergyStorage;
 import io.github.dewidos.atomized.screen.FurnaceGeneratorBlockMenu;
-import io.github.dewidos.atomized.util.AtomizedEnergyStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -30,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class FurnaceGeneratorBlockEntity extends BlockEntity implements MenuProvider {
 
-    private final AtomizedEnergyStorage ENERGY_STORAGE = createEnergyStorage();
+    private final CustomEnergyStorage ENERGY_STORAGE = createEnergyStorage();
 
     public final ItemStackHandler itemHandler = new ItemStackHandler(2) {
         @Override
