@@ -2,6 +2,7 @@ package io.github.dewidos.atomized.event;
 
 import io.github.dewidos.atomized.Atomized;
 import io.github.dewidos.atomized.container.ModContainers;
+import io.github.dewidos.atomized.screen.FurnaceGeneratorScreen;
 import io.github.dewidos.atomized.screen.LeadChestScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
@@ -16,6 +17,6 @@ public final class ClientModEvents {
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
         MenuScreens.register(ModContainers.LEAD_CHEST.get(), LeadChestScreen::new);
-//        MenuScreens.register(ModContainers.FURNACE_GENERATOR.get(), FurnaceGeneratorScreen::new);
+        MenuScreens.register(ModContainers.FURNACE_GENERATOR.get(), FurnaceGeneratorScreen::new);
     }
 }

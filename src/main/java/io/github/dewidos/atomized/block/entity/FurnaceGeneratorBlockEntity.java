@@ -27,24 +27,8 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class FurnaceGeneratorBlockEntity extends BlockEntity implements MenuProvider {
-
-    private final CustomEnergyStorage ENERGY_STORAGE = createEnergyStorage();
-
-    public final ItemStackHandler itemHandler = new ItemStackHandler(2) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-        }
-    };
-
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
-        return new FurnaceGeneratorBlockMenu(pContainerId, pInventory, this);
-    }
-
-    public static final Component TITLE = new TranslatableComponent("container." + Atomized.MOD_ID + ".energy_generator");
+public class FurnaceGeneratorBlockEntity extends InventoryBlockEntity implements BlockEntityTicker<FurnaceGeneratorBlockEntity> {
+    public static final Component TITLE = new TranslatableComponent("container." + Atomized.MOD_ID + ".furnace_generator");
 
     public final CustomEnergyStorage energyStorage;
     private int capacity = 2000, maxExtract = 100;

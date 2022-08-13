@@ -28,5 +28,6 @@
 
   "effect.atomized.radiation": "Radiation",
 
-  "container.atomized.lead_chest": "Lead Chest"
+  "container.atomized.lead_chest": "Lead Chest",
+  "container.atomized.furnace_generator": "Furnace Generator"
 }
