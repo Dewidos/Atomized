@@ -52,7 +52,7 @@ public class FurnaceGeneratorBlockEntity extends BlockEntity implements MenuProv
     private LazyOptional<CustomEnergyStorage> energy;
 
     public FurnaceGeneratorBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(ModBlockEntities.furnace_generator_block_entity.get(), pPos, pBlockState);
+        super(ModBlockEntities.FURNACE_GENERATOR.get(), pPos, pBlockState, 1);
         energyStorage = createEnergyStorage();
         energy = LazyOptional.of(() -> energyStorage);
     }
@@ -164,8 +164,8 @@ public class FurnaceGeneratorBlockEntity extends BlockEntity implements MenuProv
     }
 
     @Override
-    public Component getDisplayName() {
-        return new TextComponent("Furnace Generator");
+    public void tick(@NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull BlockState pState, FurnaceGeneratorBlockEntity pBlockEntity) {
+        pBlockEntity.tick();
     }
 
 }
