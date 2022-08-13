@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FurnaceGeneratorBlockEntity extends InventoryBlockEntity implements BlockEntityTicker<FurnaceGeneratorBlockEntity> {
-    public static final Component TITLE = new TranslatableComponent("container." + Atomized.MOD_ID + ".energy_generator");
+    public static final Component TITLE = new TranslatableComponent("container." + Atomized.MOD_ID + ".furnace_generator");
 
     public final CustomEnergyStorage energyStorage;
 

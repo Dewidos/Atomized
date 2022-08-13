@@ -19,7 +19,7 @@ public class LeadChestScreen extends AbstractContainerScreen<LeadChestContainer>
     private static final ResourceLocation TEXTURE = new ResourceLocation(Atomized.MOD_ID, "textures/gui/lead_chest.png");
 
     public LeadChestScreen(LeadChestContainer pMenu, Inventory pPlayerInventory, Component pTitle) {
-        super(pMenu, pPlayerInventory, LeadChestBlockEntity.TITLE);
+        super(pMenu, pPlayerInventory, pTitle);
         leftPos = 0;
         topPos = 0;
         imageWidth = 176;
