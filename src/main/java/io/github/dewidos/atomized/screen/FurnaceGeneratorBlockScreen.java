@@ -38,10 +38,6 @@ public class FurnaceGeneratorBlockScreen extends AbstractContainerScreen<Furnace
         renderEnergyArea(pPoseStack, pMouseX, pMouseY, x, y);
     }
 
-    private void assignEnergyInfoArea() {
-        energyInfoArea = new EnergyInfoArea(((width - imageWidth) / 2) +  156,
-                ((height - imageHeight) / 2) + 13, menu.blockEntity.getEnergyStorage());
-    }
 
     private boolean isMouseAboveArea(int pMouseX, int pMouseY, int x, int y, int offsetX, int offsetY, int width, int height) {
         return MouseUtil.isMouseOver(pMouseX, pMouseY, x + offsetX, y + offsetY, width, height);
