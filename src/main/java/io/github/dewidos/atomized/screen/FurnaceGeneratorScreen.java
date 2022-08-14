@@ -37,7 +37,7 @@ public class FurnaceGeneratorScreen extends AbstractContainerScreen<FurnaceGener
 
     private void assignEnergyInfoArea() {
         energyInfoArea = new EnergyInfoArea(((width - imageWidth) / 2) +  156,
-                ((height - imageHeight) / 2) + 13, FurnaceGeneratorBlockEntity.energyStorage, 15, 46);
+                ((height - imageHeight) / 2) + 13, this.menu.data::get, 2, 3, 15, 46);
     }
 
     @Override

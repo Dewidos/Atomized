@@ -6,6 +6,7 @@ import io.github.dewidos.atomized.block.entity.ModBlockEntities;
 import io.github.dewidos.atomized.container.ModContainers;
 import io.github.dewidos.atomized.effect.ModEffects;
 import io.github.dewidos.atomized.item.ModItems;
+import io.github.dewidos.atomized.network.PacketHandler;
 import io.github.dewidos.atomized.particle.ModParticles;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -36,8 +37,8 @@ public class Atomized {
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    private void setup(final FMLCommonSetupEvent event) {
-//        Empty
+    public void setup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(PacketHandler::init);
     }
 
 //    private void enqueueIMC(final InterModEnqueueEvent event) {

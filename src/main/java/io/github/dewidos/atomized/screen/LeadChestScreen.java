@@ -5,6 +5,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.dewidos.atomized.Atomized;
 import io.github.dewidos.atomized.block.entity.LeadChestBlockEntity;
 import io.github.dewidos.atomized.container.LeadChestContainer;
+import io.github.dewidos.atomized.network.PacketHandler;
+import io.github.dewidos.atomized.network.ServerboundLeadChestUpdatePacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -49,6 +51,6 @@ public class LeadChestScreen extends AbstractContainerScreen<LeadChestContainer>
     @Override
     protected void init() {
         super.init();
-        addRenderableWidget(new ExtendedButton(leftPos + 8, topPos + imageHeight + 5, 64, 16, new TextComponent("Eject"), btn -> Minecraft.getInstance().player.displayClientMessage(new TextComponent("He just clicked da button!"), false)));
+        addRenderableWidget(new ExtendedButton(leftPos + 8, topPos + imageHeight + 5, 64, 16, new TextComponent("Eject"), btn -> PacketHandler.INSTANCE.sendToServer(new ServerboundLeadChestUpdatePacket(getMinecraft().player.eyeBlockPosition(), true))));
     }
 }

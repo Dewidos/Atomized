@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 public class FurnaceGeneratorBlockEntity extends InventoryBlockEntity implements BlockEntityTicker<FurnaceGeneratorBlockEntity> {
     public static final Component TITLE = new TranslatableComponent("container." + Atomized.MOD_ID + ".furnace_generator");
 
-    public static CustomEnergyStorage energyStorage;
+    public final CustomEnergyStorage energyStorage;
     public static int capacity = 20000, maxExtract = 150;
     private int progress, maxProgress = 0;
     private LazyOptional<CustomEnergyStorage> energy;
