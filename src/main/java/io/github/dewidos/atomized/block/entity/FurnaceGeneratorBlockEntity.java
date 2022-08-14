@@ -4,6 +4,7 @@ import io.github.dewidos.atomized.Atomized;
 import io.github.dewidos.atomized.block.entity.util.CustomEnergyStorage;
 import io.github.dewidos.atomized.block.entity.util.InventoryBlockEntity;
 import io.github.dewidos.atomized.item.ModItems;
+import io.github.dewidos.atomized.screen.FurnaceGeneratorScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -25,9 +26,8 @@ import org.jetbrains.annotations.Nullable;
 public class FurnaceGeneratorBlockEntity extends InventoryBlockEntity implements BlockEntityTicker<FurnaceGeneratorBlockEntity> {
     public static final Component TITLE = new TranslatableComponent("container." + Atomized.MOD_ID + ".furnace_generator");
 
-    public final CustomEnergyStorage energyStorage;
-
-    private int capacity = 20000, maxExtract = 150;
+    public static CustomEnergyStorage energyStorage;
+    public static int capacity = 20000, maxExtract = 150;
     private int progress, maxProgress = 0;
     private LazyOptional<CustomEnergyStorage> energy;
 
@@ -134,7 +134,6 @@ public class FurnaceGeneratorBlockEntity extends InventoryBlockEntity implements
                 this.maxProgress = 0;
             }
         }
-
         outputEnergy();
 
         super.tick();
