@@ -28,7 +28,7 @@ public class FurnaceGeneratorBlockEntity extends InventoryBlockEntity implements
 
     public final CustomEnergyStorage energyStorage;
     public static int capacity = 20000, maxExtract = 150;
-    private int progress, maxProgress = 0;
+    public int progress, maxProgress = 0;
     private LazyOptional<CustomEnergyStorage> energy;
 
     public FurnaceGeneratorBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -49,7 +49,11 @@ public class FurnaceGeneratorBlockEntity extends InventoryBlockEntity implements
     }
 
     public int getEnergyForStack(ItemStack stack) {
-        return ForgeHooks.getBurnTime(stack, RecipeType.SMELTING) + (1/4 * ForgeHooks.getBurnTime(stack, RecipeType.SMELTING));
+        if (getItemInSlot(2).is(ModItems.EFFICIENCY_UPGRADE.get())) {
+            int amount = getItemInSlot(2).getCount();
+            return (int) Math.round(ForgeHooks.getBurnTime(stack, RecipeType.SMELTING) * (amount * 0.25));
+        }
+        return ForgeHooks.getBurnTime(stack, RecipeType.SMELTING);
     }
 
     public int getMaxProgress() {
@@ -104,7 +108,7 @@ public class FurnaceGeneratorBlockEntity extends InventoryBlockEntity implements
         }
     }
 
-    private int RFPerTick() {
+    public int RFPerTick() {
         int speed = 10;
         if (getItemInSlot(1).is(ModItems.SPEED_UPGRADE.get())) {
             speed += getItemInSlot(1).getCount() * 20;
@@ -118,7 +122,7 @@ public class FurnaceGeneratorBlockEntity extends InventoryBlockEntity implements
 
     public void tick() {
         if (this.energyStorage.getEnergyStored() <= this.energyStorage.getMaxEnergyStored() - RFPerTick()) {
-            if (!getItemInSlot(0).isEmpty() && (this.progress <= 0 || this.progress > this.maxProgress)) {
+            if (!getItemInSlot(0).isEmpty() && (this.progress <= 0 || this.progress > this.maxProgress) && getEnergyForStack(getItemInSlot(0)) > 0) {
                 this.maxProgress = getEnergyForStack(getItemInSlot(0));
                 this.inventory.extractItem(0, 1, false);
                 this.energyStorage.setEnergy(this.energyStorage.getEnergyStored() + RFPerTick());

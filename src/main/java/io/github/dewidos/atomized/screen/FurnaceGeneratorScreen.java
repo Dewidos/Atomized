@@ -52,9 +52,10 @@ public class FurnaceGeneratorScreen extends AbstractContainerScreen<FurnaceGener
 
         final int progress = this.menu.data.get(0);
         final int maxProgress = this.menu.data.get(1);
-        final int scaledProgress = (int) mapNumber(progress, 0, maxProgress, 0, 22);
+        final int progressToCalc = progress == 0 ? maxProgress : progress;
+        final int scaledProgress = (int) mapNumber(maxProgress - progressToCalc, 0, maxProgress, 0, 14);
         bindTexture();
-        blit(stack, this.leftPos + 69, this.topPos + 37, 206, 0, scaledProgress, 15);
+        blit(stack, this.leftPos + 97, this.topPos + 49, 205, 13, -13, -scaledProgress);
 
         this.font.draw(stack, this.title, this.leftPos + 7, this.topPos + 5, 0x404040);
         this.font.draw(stack, this.playerInventoryTitle, this.leftPos + 8, this.topPos + 75, 0x404040);

@@ -21,4 +21,13 @@ public class FurnaceGeneratorContainerData extends SimpleContainerData {
             default -> throw new UnsupportedOperationException("Unable to get key: '" + pIndex + "' for block entity: '" + blockEntity + "' at pos: '" + blockEntity.getBlockPos() + "'");
         };
     }
+
+
+    @Override
+    public void set(int pIndex, int pValue) {
+        super.set(pIndex, pValue);
+        switch (pIndex) {
+            case 0 -> blockEntity.progress = pValue;
+        }
+    }
 }
